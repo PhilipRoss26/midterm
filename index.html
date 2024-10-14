@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobby</title>
+</head>
+<body>
+    <h1>Hobby</h1>
+
+    <h2>Create</h2>
+    <label for="hobbyName">Hobby Name: </label>
+    <input type="text" id="hobbyName">
+    <label for="hobbyLevel">Skill Level: </label>
+    <input type="text" id="hobbyLevel">
+    <button onclick="createObject()">click</button>
+
+    <h2>Update</h2>
+    <label for="updateHobby">Enter Hobby Name to Update: </label>
+    <input type="text" id="updateHobby">
+    <label for="newHobbyLevel">New Skill Level: </label>
+    <input type="text" id="newHobbyLevel">
+    <button onclick="updateObject()">click</button>
+
+    <h2>Delete</h2>
+    <label for="deleteHobby">Enter Hobby Name to Delete: </label>
+    <input type="text" id="deleteHobby">
+    <button onclick="deleteObject()">click</button>
+
+    <h2>Hobbies List</h2>
+    <div id="displayArea"></div>
+
+    <script>
+        let hobbies = [
+            { name: 'Surfing', 
+              level: 'Hard' },
+
+            { name: 'Photography', 
+              level: 'Intermediate' },
+            
+            { name: 'Cooking', 
+              level: 'Beginner' },
+            
+            { name: 'Gaming', 
+              level: 'Easy' },
+
+            { name: 'Napping', 
+              level: 'Zzzzzzz...' }
+        ];
+
+        function displayHobbies() {
+            let displayArea = document.getElementById('displayArea');
+            displayArea.innerHTML = '';
+            hobbies.forEach(hobby => {
+                displayArea.innerHTML += `${hobby.name}, Level: ${hobby.level}<br>`;
+            });
+        }
+
+        function createObject() {
+            let name = document.getElementById('hobbyName').value;
+            let level = document.getElementById('hobbyLevel').value;
+
+            if (name & level) {
+                hobbies.push({ name: name, level: level });
+                displayHobbies(); 
+            }
+        }
+
+
+
+        function findHobby(name) {
+            return hobbies.find(hobby => hobby.name === name);
+        }
+
+        function updateObject() {
+            let name = document.getElementById('updateHobby').value;
+            let newLevel = document.getElementById('newHobbyLevel').value;
+
+            let hobby = findHobby(name);
+            if (hobby) {
+                hobby.level = newLevel; 
+                displayHobbies(); 
+            }
+        }
+
+        function deleteObject() {
+            let name = document.getElementById('deleteHobby').value;
+            let index = hobbies.findIndex(hobby => hobby.name === name);
+
+            if (index !== -1) {
+                hobbies.splice(index, 1);
+                displayHobbies();
+            }
+        }
+
+        displayHobbies();
+    </script>
+</body>
+</html>
